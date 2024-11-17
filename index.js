@@ -1,8 +1,12 @@
 let readlinesync = require("prompt-sync");
+let kuler = require("kuler");
 let prompt = readlinesync();
 let score = 0;
 let totalQuestion = 0;
 let userName = prompt("What is your name? ");
+console.log(kuler(`Hello ${userName} welcome to quiz app`, "#1d4ed8"));
+console.log(kuler("\nPlease select any option by typing a/b/c/d as per the options\n", "#1d4ed8"))
+/* Creating database for leaderboard*/
 const leaderBoard = {
     data: [
         {
@@ -20,7 +24,7 @@ const leaderBoard = {
 
     ]
 }
-/* Creating data set*/
+/* Creating data set for questions*/
 const database = {
     data : [
         {
@@ -57,11 +61,11 @@ console.log(a===b)`,
 }
 function playGame(userAnswer, correctAnswer){
     if(userAnswer === correctAnswer){
-        console.log("correct Answer")
+        console.log(kuler("correct Answer", "#059669"))
         score++;
     } else{
-        console.log("Incorrect Answer")
-        console.log(`Correct Answer is ${correctAnswer}`);
+        console.log(kuler("Incorrect Answer", "#b91c1c"));
+        console.log(kuler(`Correct Answer is ${correctAnswer}`, "#059669"));
     }
     totalQuestion++;
     
@@ -72,17 +76,16 @@ function showQuestionAndOptions(database){
         for(let key in database.data[i].options){
             console.log(`${key} - ${database.data[i].options[key]}`);
         }
-        let userAnswer = prompt("Enter your answer :- ");
-        userAnswer.toLowerCase(); 
+        let userAnswer = prompt("Enter your answer :- ").toLowerCase();
         playGame(userAnswer, database.data[i].correctAnswer);
     }
 }
 function highScorer(leaderBoard){
     leaderBoard.data.push({name: userName, score: score})
     let sortedScoreList = leaderBoard.data.sort((a, b)=> b.score - a.score)
-    console.log("\nCheck your position in leaderboard")
+    console.log(kuler("\nCheck your position in leaderboard", "#1d4ed8"))
     for(let leader of sortedScoreList){
-        console.log(`${leader.name} - score: ${leader.score}`)
+        console.log(kuler(`${leader.name} - score: ${leader.score}`, "933"))
     }
 }
 showQuestionAndOptions(database);
