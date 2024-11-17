@@ -2,6 +2,24 @@ let readlinesync = require("prompt-sync");
 let prompt = readlinesync();
 let score = 0;
 let totalQuestion = 0;
+let userName = prompt("What is your name? ");
+const leaderBoard = {
+    data: [
+        {
+            name: "Ashish",
+            score: 1
+        },
+        {
+            name: "Riya",
+            score: 2
+        },
+        {
+            name: "Jay",
+            score: 3
+        }
+
+    ]
+}
 /* Creating data set*/
 const database = {
     data : [
@@ -50,7 +68,7 @@ function playGame(userAnswer, correctAnswer){
 }
 function showQuestionAndOptions(database){
     for(let i=0; i<database.data.length; i++){
-        console.log(`\nQ${i+1} - ${database.data[i].question}`);
+        console.log(`\n${i+1} - ${database.data[i].question}\n`);
         for(let key in database.data[i].options){
             console.log(`${key} - ${database.data[i].options[key]}`);
         }
@@ -59,7 +77,16 @@ function showQuestionAndOptions(database){
         playGame(userAnswer, database.data[i].correctAnswer);
     }
 }
+function highScorer(leaderBoard){
+    leaderBoard.data.push({name: userName, score: score})
+    let sortedScoreList = leaderBoard.data.sort((a, b)=> b.score - a.score)
+    console.log("\nCheck your position in leaderboard")
+    for(let leader of sortedScoreList){
+        console.log(`${leader.name} - score: ${leader.score}`)
+    }
+}
 showQuestionAndOptions(database);
 console.log(`your score is ${score} out of ${totalQuestion}`);
+highScorer(leaderBoard)
 
 
