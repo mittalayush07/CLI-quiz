@@ -1,5 +1,7 @@
 let readlinesync = require("prompt-sync");
 let prompt = readlinesync();
+let score = 0;
+let totalQuestion = 0;
 /* Creating data set*/
 const database = {
     data : [
@@ -38,9 +40,12 @@ console.log(a===b)`,
 function playGame(userAnswer, correctAnswer){
     if(userAnswer === correctAnswer){
         console.log("correct Answer")
+        score++;
     } else{
         console.log("Incorrect Answer")
+        console.log(`Correct Answer is ${correctAnswer}`);
     }
+    totalQuestion++;
     
 }
 function showQuestionAndOptions(database){
@@ -55,5 +60,6 @@ function showQuestionAndOptions(database){
     }
 }
 showQuestionAndOptions(database);
+console.log(`your score is ${score} out of ${totalQuestion}`);
 
 
