@@ -1,4 +1,5 @@
-const input = require('readline');
+let readlinesync = require("prompt-sync");
+let prompt = readlinesync();
 /* Creating data set*/
 const database = {
     data : [
@@ -34,15 +35,25 @@ console.log(a===b)`,
         }
     ]
 }
-function showQuestionAndOptions(){
+function playGame(userAnswer, correctAnswer){
+    if(userAnswer === correctAnswer){
+        console.log("correct Answer")
+    } else{
+        console.log("Incorrect Answer")
+    }
+    
+}
+function showQuestionAndOptions(database){
     for(let i=0; i<database.data.length; i++){
         console.log(`\nQ${i+1} - ${database.data[i].question}`);
         for(let key in database.data[i].options){
             console.log(`${key} - ${database.data[i].options[key]}`);
         }
-        let userName=input.question("Enter your name");
+        let userAnswer = prompt("Enter your answer :- ");
+        userAnswer.toLowerCase(); 
+        playGame(userAnswer, database.data[i].correctAnswer);
     }
 }
-showQuestionAndOptions();
+showQuestionAndOptions(database);
 
 
